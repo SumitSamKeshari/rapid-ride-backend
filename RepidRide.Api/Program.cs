@@ -27,6 +27,8 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
+Log.Information("=== RapidRide API starting up in [{Environment}] mode ===", builder.Environment.EnvironmentName);
+
 // 2. CONFIGURE CORS
 builder.Services.AddCors(options =>
 {
@@ -40,8 +42,14 @@ builder.Services.AddCors(options =>
 });
 
 // 3. DATABASE REPOSITORIES
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? "Server=.\\SQLEXPRESS;Database=RepidRideDB;User Id=sumit;Password=Kun@123;TrustServerCertificate=True;MultipleActiveResultSets=True;";
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    Log.Fatal("FATAL: 'DefaultConnection' string not found for environment [{Environment}]!", builder.Environment.EnvironmentName);
+    throw new InvalidOperationException($"DefaultConnection connection string is missing for environment '{builder.Environment.EnvironmentName}'.");
+}
+
+Log.Information("Database connection configured successfully for [{Environment}].", builder.Environment.EnvironmentName);
 
 builder.Services.AddScoped<ILocationRepository>(provider => 
     new LocationRepository(connectionString, provider.GetService<ILogger<LocationRepository>>()));
@@ -55,10 +63,12 @@ builder.Services.AddScoped<IRideRepository>(provider =>
 // 4. ROUTING SERVICES
 if (builder.Environment.IsDevelopment())
 {
+    Log.Information("Using MockRoutingService for Development environment");
     builder.Services.AddTransient<IRoutingService, MockRoutingService>();
 }
 else
 {
+    Log.Information("Using GoogleRoutingService for Production environment");
     builder.Services.AddHttpClient<IRoutingService, GoogleRoutingService>();
 }
 
