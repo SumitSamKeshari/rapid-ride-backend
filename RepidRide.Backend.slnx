@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="RepidRide.Api/RepidRide.Api.csproj" />
+  <Project Path="RepidRide.Core/RepidRide.Core.csproj" />
+  <Project Path="RepidRide.Data/RepidRide.Data.csproj" />
+  <Project Path="RepidRide.Services/RepidRide.Services.csproj" />
+</Solution>

@@ -1,0 +1,69 @@
+# ==============================================================================
+# .gitignore for RepidRide ASP.NET Core Backend Solution
+# ==============================================================================
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rms/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+publish/
+
+# Visual Studio / Rider cache
+.vs/
+.idea/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userprefs
+*.pidb
+*.booproj
+*.svclog
+
+# Build & Test outputs
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.pdb
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.vsps
+*.vsp
+*.vspx
+
+# Application Logs (Serilog daily rolling files)
+Logs/
+logs/
+rapidride-*.log
+*.log
+
+# Sensitive environment configuration overrides (keep appsettings.json, ignore custom overrides)
+appsettings.*.local.json
+appsettings.Production.json
+
+# Operating System files
+.DS_Store
+Thumbs.db
+desktop.ini
